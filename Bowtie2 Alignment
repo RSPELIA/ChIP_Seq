@@ -1,0 +1,27 @@
+#ChIP-seq Alignment  (inputs)
+
+source /mnt/SubraFSS/data/rpelia/anaconda3/bin/activate
+
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s005_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-1_S5_R1.fastq.gz  
+-2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s005_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-1_S5_R2.fastq.gz   | samtools view -ub - | samtools sort - >| lowdose1_input_rerun.bam
+
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s006_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-2_S6_R1.fastq.gz        
+-2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s006_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-2_S6_R2.fastq.gz   | samtools view -ub - | samtools sort - >| lowdose2_input_rerun.bam
+
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s007_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-1_S7_R1.fastq.gz  
+-2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s007_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-1_S7_R2.fastq.gz   | samtools view -ub - | samtools sort - >| highdose1_input_rerun.bam
+
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s008_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-2_S8_R1.fastq.gz  
+-2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s008_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-2_S8_R2.fastq.gz   | samtools view -ub - | samtools sort - >| highdose2_input_rerun.bam
+
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/lowdose1_input_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/lowdose1_input_rerun.bam
+
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/lowdose2_input_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/lowdose2_input_rerun.bam
+
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/highdose1_input_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/highdose1_input_rerun.bam
+
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/highdose2_input_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/highdose2_input_rerun.bam
