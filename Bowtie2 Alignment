@@ -1,27 +1,74 @@
 #ChIP-seq Alignment  (inputs)
 
-source /mnt/SubraFSS/data/rpelia/anaconda3/bin/activate
+qstat -f -u ‘*’
+#qlogin -l  h=node03
+qlogin -l mem_free=128G
 
+#Need to insert Trimmomatic Parameters and Code for Trimming Adapters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nano chipseq_alignment
+ 
+#$ -pe smp 32
+#$ -cwd
+#$ -m abe
+#$ -M rpelia@emory.edu
+ 
+source /mnt/SubraFSS/data/rpelia/anaconda3/bin/activate
+ 
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep1/p23151-s001_MCF7-DBN025-IP-Dox-0-5-ug-ml-Rep-1_S1_R1.fastq.gz -2 /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep1/p23151-s001_MCF7-DBN025-IP-Dox-0-5-ug-ml-Rep-1_S1_R2.fastq.gz | samtools view -ub - | samtools sort - >| lowdose_rep1_rerun.bam
+ 
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep2/p23151-s002_MCF7-DBN025-IP-Dox-0-5-ug-ml-Rep-2_S2_R1.fastq.gz -2 /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep2/p23151-s002_MCF7-DBN025-IP-Dox-0-5-ug-ml-Rep-2_S2_R2.fastq.gz | samtools view -ub - | samtools sort - >| lowdose_rep2_rerun.bam
+ 
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/highdose_rep1/p23151-s003_MCF7-DBN025-IP-Dox-0-1-ug-ml-Rep-1_S3_R1.fastq.gz -2 /mnt/SubraFSS/data/rpelia/HIC/highdose_rep1/p23151-s003_MCF7-DBN025-IP-Dox-0-1-ug-ml-Rep-1_S3_R2.fastq.gz | samtools view -ub - | samtools sort - >| highdose_rep1_rerun.bam
+ 
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/highdose_rep2/p23151-s004_MCF7-DBN025-IP-Dox-0-1-ug-ml-Rep-2_S4_R1.fastq.gz -2 /mnt/SubraFSS/data/rpelia/HIC/highdose_rep2/p23151-s004_MCF7-DBN025-IP-Dox-0-1-ug-ml-Rep-2_S4_R2.fastq.gz | samtools view -ub - | samtools sort - >| highdose_rep2_rerun.bam
+ 
 bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s005_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-1_S5_R1.fastq.gz  
 -2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s005_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-1_S5_R2.fastq.gz   | samtools view -ub - | samtools sort - >| lowdose1_input_rerun.bam
-
-bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s006_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-2_S6_R1.fastq.gz        
+ 
+bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s006_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-2_S6_R1.fastq.gz  
 -2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s006_MCF7-DBN025-INPUT-Dox-0-5-ug-ml-Rep-2_S6_R2.fastq.gz   | samtools view -ub - | samtools sort - >| lowdose2_input_rerun.bam
-
+ 
 bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s007_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-1_S7_R1.fastq.gz  
 -2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s007_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-1_S7_R2.fastq.gz   | samtools view -ub - | samtools sort - >| highdose1_input_rerun.bam
-
+ 
 bowtie2 --very-sensitive --no-mixed -p 32 -x /mnt/SubraFSS/data/rpelia/grch38/ -1 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s008_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-2_S8_R1.fastq.gz  
 -2 /mnt/SubraFSS/data/rpelia/HIC/inputs/p23151-s008_MCF7-DBN025-INPUT-Dox-0-1-ug-ml-Rep-2_S8_R2.fastq.gz   | samtools view -ub - | samtools sort - >| highdose2_input_rerun.bam
-
+ 
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep1_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep1_rerun.bam
+ 
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep2_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/lowdose_rep2_rerun.bam
+ 
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/highdose_rep1_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/highdose_rep1_rerun.bam
+ 
+samtools sort /mnt/SubraFSS/data/rpelia/HIC/highdose_rep2_rerun.bam
+samtools index /mnt/SubraFSS/data/rpelia/HIC/highdose_rep2_rerun.bam
+ 
 samtools sort /mnt/SubraFSS/data/rpelia/HIC/lowdose1_input_rerun.bam
-samtools index /mnt/SubraFSS/data/rpelia/HIC/lowdose1_input_rerun.bam
-
-samtools sort /mnt/SubraFSS/data/rpelia/HIC/lowdose2_input_rerun.bam
 samtools index /mnt/SubraFSS/data/rpelia/HIC/lowdose2_input_rerun.bam
-
+ 
 samtools sort /mnt/SubraFSS/data/rpelia/HIC/highdose1_input_rerun.bam
-samtools index /mnt/SubraFSS/data/rpelia/HIC/highdose1_input_rerun.bam
-
-samtools sort /mnt/SubraFSS/data/rpelia/HIC/highdose2_input_rerun.bam
 samtools index /mnt/SubraFSS/data/rpelia/HIC/highdose2_input_rerun.bam
+ 
+ls
+cat chipseq_alignment
+qsub chipseq_alignment
+ 
+qstat
